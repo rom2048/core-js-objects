@@ -154,15 +154,14 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
 function sellTickets(queue) {
-  let change = 0;
-  queue.forEach((ticket) => {
-    if (ticket > 25) {
-      change -= ticket;
-    } else {
-      change += ticket;
+  let res = true;
+  queue.reduce((change, ticket) => {
+    if (ticket - 25 > change) {
+      res = false;
     }
-  });
-  return change >= 0;
+    return change + ticket;
+  }, 0);
+  return res;
 }
 
 /**
